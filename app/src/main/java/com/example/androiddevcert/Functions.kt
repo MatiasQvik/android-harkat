@@ -12,9 +12,9 @@ class Functions {
 
     private fun printNotifSummary(notifAmount: Int) {
         if (notifAmount >= 99) {
-            println("Your phone is blowin up! You have 99+ notifications")
+            println("MATU: Your phone is blowing up! You have 99+ notifications")
         }   else {
-            println("You have $notifAmount notifications")
+            println("MATU: You have $notifAmount notifications")
         }
     }
 
@@ -23,7 +23,7 @@ class Functions {
         when (initialUnit) {
             "C" -> printFinalTemperature(degrees, initialUnit, "F") {it * 9.0 / 5.0 + 32}
             "F" -> printFinalTemperature(degrees, initialUnit, "K") {(it -32) * 5.0 / 9.0 + 273.15}
-            "K" -> printFinalTemperature(degrees, initialUnit, "C") {it - 372.15}
+            "K" -> printFinalTemperature(degrees, initialUnit, "C") {it - 273.15}
             else -> error("Invalid unit in tempCalculator")
         }
     }
@@ -36,7 +36,7 @@ class Functions {
         conversionFormula: (Double) -> Double
     ) {
         val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement))
-        println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit")
+        println("MATU: $initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit")
     }
 
 }
