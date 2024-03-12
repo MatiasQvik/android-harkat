@@ -4,19 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -29,7 +26,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,12 +50,21 @@ class MainActivity : ComponentActivity() {
                 Row(
                     modifier = Modifier
                         .padding(8.dp)
-                        .wrapContentHeight(Alignment.CenterVertically),
+                        .wrapContentHeight(Alignment.CenterVertically)
+                        .height(60.dp)
+                        .fillMaxWidth(),
+
                     horizontalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    DegreesAmountTextField()
-                    TempUnits()
-                    CalcButton()
+                    Column(modifier = Modifier.weight(2f)) {
+                        DegreesAmountTextField()
+                    }
+                    Column(modifier = Modifier.weight(1f)) {
+                        TempUnits()
+                    }
+                    Column(modifier = Modifier.weight(1f)) {
+                        CalcButton()
+                    }
                 }
             }
         }
@@ -63,30 +73,46 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun CalcButton () {
-    Box(modifier = Modifier
-        .fillMaxWidth(0.33F)){
-        OutlinedButton(onClick = {
-            if (::tempUnit.isInitialized && ::degreeAmount.isInitialized) {
-                Functions().tempCalculator(degreeAmount.toDouble(), tempUnit)
-            } else println("MATU: Error Calc")
-        }) {
-            Text(text = "Calc")
-        }
+    OutlinedButton(modifier = Modifier
+        .fillMaxSize(),
+        contentPadding = PaddingValues(1.dp),
+            onClick = {
+        if (::tempUnit.isInitialized && ::degreeAmount.isInitialized && degreeAmount.isNotBlank()) {
+            Functions().tempCalculator(degreeAmount.toDouble(), tempUnit)
+        } else println("MATU: Error Calc")
+    }) {
+        Text(text = "Calc")
     }
+
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun DegreesAmountTextField() {
     var degreesAmountAsTextField by remember {mutableStateOf(TextFieldValue(""))}
     OutlinedTextField(
         modifier = Modifier
-            .fillMaxWidth(0.33F),
+            .fillMaxSize()
+            .onKeyEvent {
+                if (it.nativeKeyEvent.keyCode == 66) {
+
+                    if (::tempUnit.isInitialized && ::degreeAmount.isInitialized && degreeAmount.isNotBlank()) {
+                        Functions().tempCalculator(degreeAmount.toDouble(), tempUnit)
+                    } else println("MATU: Error Calc")
+                }
+                false
+            },
         value = degreesAmountAsTextField,
         onValueChange = { it -> degreesAmountAsTextField = it
                         degreeAmount = it.text},
         label = { Text(text = "Degrees")},
         placeholder = {Text(text = ("40"))},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {
+            if (::tempUnit.isInitialized && ::degreeAmount.isInitialized && degreeAmount.isNotEmpty()) {
+                Functions().tempCalculator(degreeAmount.toDouble(), tempUnit)
+            } else println("MATU: Error Calc")})
         )
 }
 
@@ -95,45 +121,42 @@ private fun TempUnits(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth(0.33F)
-    ) {
-        var buttonText by remember {
-            mutableStateOf("Temp Unit")
-        }
-        OutlinedButton(onClick = {expanded = !expanded},
-            modifier = Modifier
-            ) {
-            Text(text = buttonText)
-        }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(text = { Text("F" )}, onClick = {
-                tempUnit = "F"
-                expanded =! expanded
-                if (::tempUnit.isInitialized) {
-                    buttonText = tempUnit
-                }
-            })
-            Divider()
-            DropdownMenuItem(text = { Text("C") }, onClick = {
-                tempUnit = "C"
-                expanded =! expanded
-                if (::tempUnit.isInitialized) {
-                    buttonText = tempUnit
-                }
-            })
-            Divider()
-            DropdownMenuItem(text = { Text("K") }, onClick = {
-                tempUnit = "K"
-                expanded =! expanded
-                if (::tempUnit.isInitialized) {
-                    buttonText = tempUnit
-                }
-            })
-        }
-
+    var buttonText by remember {
+        mutableStateOf("Temp Unit")
     }
+    OutlinedButton(onClick = {expanded = !expanded},
+        contentPadding = PaddingValues(1.dp),
+        modifier = Modifier
+            .fillMaxSize()
+        ) {
+        Text(text = buttonText)
+    }
+    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        DropdownMenuItem(text = { Text("F" )}, onClick = {
+            tempUnit = "F"
+            expanded =! expanded
+            if (::tempUnit.isInitialized) {
+                buttonText = tempUnit
+            }
+        })
+        Divider()
+        DropdownMenuItem(text = { Text("C") }, onClick = {
+            tempUnit = "C"
+            expanded =! expanded
+            if (::tempUnit.isInitialized) {
+                buttonText = tempUnit
+            }
+        })
+        Divider()
+        DropdownMenuItem(text = { Text("K") }, onClick = {
+            tempUnit = "K"
+            expanded =! expanded
+            if (::tempUnit.isInitialized) {
+                buttonText = tempUnit
+            }
+        })
+    }
+
 }
 
 @Composable
