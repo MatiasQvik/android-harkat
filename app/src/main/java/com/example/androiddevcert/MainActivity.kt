@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
 
         Functions().notifStarter()
         songHelper()
+        Functions().starterFunction()
         setContent {
             Column(modifier = Modifier.padding(2.dp)) {
 
