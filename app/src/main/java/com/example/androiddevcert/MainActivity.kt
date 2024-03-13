@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,6 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         Functions().notifStarter()
+        songHelper()
         setContent {
             Column(modifier = Modifier.padding(2.dp)) {
 
@@ -173,4 +173,12 @@ fun GreetingPreview() {
     AndroidDevCertTheme {
         Greeting("Android")
     }
+}
+
+fun songHelper() {
+    val song1 = Song("Viva La Vida", "Coldplay", "2008",1956476814)
+    val song2 = Song("Song 2", "Blur", "1997", 837143021)
+    val song3 = Song("Luomus", "Wiimeinen Mammutti", "2024", 997)
+    val songList = mutableListOf(song1, song2, song3)
+    songList.forEach{printSongDescription(it)}
 }
