@@ -9,6 +9,24 @@ class Functions {
         amanda.showProfile()
         atiqah.showProfile()
 
+
+        val newFoldablePhone = FoldablePhone()
+
+        newFoldablePhone.switchOn()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.unfold()
+        newFoldablePhone.switchOn()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.switchOff()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.unfold()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.switchOn()
+        newFoldablePhone.fold()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.unfold()
+        newFoldablePhone.switchOn()
+        newFoldablePhone.checkPhoneScreenLight()
     }
     
     fun notifStarter() {
