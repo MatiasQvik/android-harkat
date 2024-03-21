@@ -1,8 +1,8 @@
 package com.example.androiddevcert.navigation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -29,16 +30,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -135,6 +135,52 @@ fun TaskCompletedScreen() {
 @Composable
 fun ComposeQuadrantScreen() {
 
+    val darkLightPurpleColour = Color(0xFFEADDFF)
+    val lightDarkPurpleColour = Color(0xFFD0BCFF)
+    val darkDarkPurpleColour = Color(0xFFB69DF8)
+    val lightLightPurpleColour = Color(0xFFF6EDFF)
+    Card(modifier = Modifier.fillMaxSize()) {
+        Column {
+            Row(modifier = Modifier.weight(1F)) {
+                Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1F)
+                    .background(color = darkLightPurpleColour),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center) {
+
+                }
+                Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1F)
+                    .background(color = lightDarkPurpleColour),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center) {
+
+                }
+            }
+            Row(modifier = Modifier.weight(1F)) {
+                Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1F)
+                    .background(color = darkDarkPurpleColour),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center) {
+
+                }
+                Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1F)
+                    .background(
+                        color = lightLightPurpleColour),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center) {
+
+                }
+            }
+        }
+
+    }
 }
 
 

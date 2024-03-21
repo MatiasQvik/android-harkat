@@ -27,7 +27,7 @@ fun MainScreenView(){
     var selectedScreen by remember { mutableStateOf(screens.first()) }
     Scaffold(
         bottomBar = {
-                BottomNavigation {
+                BottomNavigation() {
                         screens.forEach {screen ->
                             BottomNavigationItem(
                                     icon = { Icon(getIconForScreen(screen), contentDescription = screen) },
@@ -40,7 +40,7 @@ fun MainScreenView(){
                 }
         }
 
-    ) {
+    ) {innerPadding -> innerPadding.calculateBottomPadding()
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {

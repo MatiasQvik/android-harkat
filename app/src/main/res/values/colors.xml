@@ -7,8 +7,4 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="cq_colour_1_dark_light_purple">0xFFEADDFF</color>
-    <color name="cq_colour_2_light_dark_purple">0xFFD0BCFF</color>
-    <color name="cq_colour_3_dark_dark_purple">0xFFB69DF8</color>
-    <color name="cq_colour_4_light_light_purple">0xFFF6EDFF</color>
 </resources>
