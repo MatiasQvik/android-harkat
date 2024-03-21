@@ -58,6 +58,7 @@ fun ReturnScreen(screen: String) {
         "Home" -> HomeScreen()
         "Article" -> ArticleScreen()
         "Task" -> TaskCompletedScreen()
+        "Quadrant" -> ComposeQuadrantScreen()
         else -> HomeScreen()
     }
 }
@@ -115,7 +116,9 @@ fun ArticleScreen() {
 
 @Composable
 fun TaskCompletedScreen() {
-    Column(modifier = Modifier.fillMaxWidth().fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Row(modifier = Modifier) {
             Image(painter = painterResource(id = R.drawable.ic_task_completed), contentDescription = stringResource(
                 id = R.string.compose_header_image_desc))
@@ -126,8 +129,11 @@ fun TaskCompletedScreen() {
         Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
             Text(text = stringResource(id = R.string.task_completed_second_sentence))
         }
-
     }
+}
+
+@Composable
+fun ComposeQuadrantScreen() {
 
 }
 

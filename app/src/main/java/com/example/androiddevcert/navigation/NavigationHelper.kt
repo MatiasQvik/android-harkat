@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -18,12 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreenView(){
-    val screens = listOf("Home", "Article", "Task")
+    val screens = listOf("Home", "Article", "Task", "Quadrant")
     var selectedScreen by remember { mutableStateOf(screens.first()) }
     Scaffold(
         bottomBar = {
@@ -55,6 +55,7 @@ fun getIconForScreen(screen: String) : ImageVector {
         "Home" -> Icons.Default.Home
         "Article" -> Icons.Default.Edit
         "Task" -> Icons.Default.Check
+        "Quadrant" -> Icons.Default.Email
         else -> Icons.Default.Home
     }
 }
