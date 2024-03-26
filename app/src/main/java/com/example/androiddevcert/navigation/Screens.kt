@@ -19,8 +19,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.androiddevcert.Functions
 import com.example.androiddevcert.R
 import com.example.androiddevcert.Song
@@ -64,122 +67,176 @@ fun ReturnScreen(screen: String) {
 }
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
 
-
-    Column(modifier = Modifier
-        .padding(2.dp),
-        verticalArrangement = Arrangement.Top
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-
-        Row(
-            modifier = Modifier
-                .padding(8.dp)
-                .wrapContentHeight(Alignment.CenterVertically)
-                .height(60.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
+        Column(modifier = Modifier
+            .padding(2.dp),
+            verticalArrangement = Arrangement.Top
         ) {
-            Column(modifier = Modifier.weight(2f)) {
-                DegreesAmountTextField()
+
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .wrapContentHeight(Alignment.CenterVertically)
+                    .height(60.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Column(modifier = Modifier.weight(2f)) {
+                    DegreesAmountTextField()
+                }
+                Column(modifier = Modifier.weight(1f)) {
+                    TempUnits()
+                }
+                Column(modifier = Modifier.weight(1f)) {
+                    CalcButton()
+                }
             }
-            Column(modifier = Modifier.weight(1f)) {
-                TempUnits()
+        }
+    }
+
+}
+
+@Composable
+fun ArticleScreen(navController: NavHostController) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(modifier = Modifier.fillMaxSize(1f)) {
+            Row(modifier = Modifier.wrapContentWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.bg_compose_background),
+                    contentDescription = stringResource(
+                        id = R.string.compose_header_image_desc
+                    )
+                )
             }
-            Column(modifier = Modifier.weight(1f)) {
-                CalcButton()
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = stringResource(id = R.string.jpc_tutorial_title),
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 24.sp
+                )
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = stringResource(id = R.string.jpc_tutorial_first_paragraph),
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    textAlign = TextAlign.Justify
+                )
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = stringResource(id = R.string.jpc_tutorial_second_paragraph),
+                    modifier = Modifier.padding(16.dp),
+                    textAlign = TextAlign.Justify
+                )
             }
         }
     }
 }
 
 @Composable
-fun ArticleScreen() {
-    Column(modifier = Modifier.fillMaxSize(1f)) {
-        Row(modifier = Modifier.wrapContentWidth()) {
-            Image(painter = painterResource(id = R.drawable.bg_compose_background), contentDescription = stringResource(
-                id = R.string.compose_header_image_desc)
-            )
-        }
-        Row(modifier = Modifier.fillMaxWidth()){
-            Text(text = stringResource(id = R.string.jpc_tutorial_title), modifier = Modifier.padding(16.dp), fontSize = 24.sp)
-        }
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(text = stringResource(id = R.string.jpc_tutorial_first_paragraph), modifier = Modifier.padding(horizontal = 16.dp), textAlign = TextAlign.Justify)
-        }
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(text = stringResource(id = R.string.jpc_tutorial_second_paragraph), modifier = Modifier.padding(16.dp), textAlign = TextAlign.Justify)
-        }
-    }
-}
-
-@Composable
-fun TaskCompletedScreen() {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(modifier = Modifier) {
-            Image(painter = painterResource(id = R.drawable.ic_task_completed), contentDescription = stringResource(
-                id = R.string.compose_header_image_desc))
-        }
-        Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-            Text(text = stringResource(id = R.string.task_completed_first_sentence), fontWeight = FontWeight.Bold)
-        }
-        Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-            Text(text = stringResource(id = R.string.task_completed_second_sentence))
+fun TaskCompletedScreen(navController: NavHostController) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(modifier = Modifier) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_task_completed),
+                    contentDescription = stringResource(
+                        id = R.string.compose_header_image_desc
+                    )
+                )
+            }
+            Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.task_completed_first_sentence),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
+                Text(text = stringResource(id = R.string.task_completed_second_sentence))
+            }
         }
     }
 }
 
 @Composable
-fun ComposeQuadrantScreen() {
+fun ComposeQuadrantScreen(navController: NavHostController) {
 
     val darkLightPurpleColour = Color(0xFFEADDFF)
     val lightDarkPurpleColour = Color(0xFFD0BCFF)
     val darkDarkPurpleColour = Color(0xFFB69DF8)
     val lightLightPurpleColour = Color(0xFFF6EDFF)
-    Card(modifier = Modifier.fillMaxSize()) {
-        Column {
-            Row(modifier = Modifier.weight(1F)) {
-                Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1F)
-                    .background(color = darkLightPurpleColour),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Card(modifier = Modifier.fillMaxSize()) {
+            Column {
+                Row(modifier = Modifier.weight(1F)) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1F)
+                            .background(color = darkLightPurpleColour),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
 
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1F)
+                            .background(color = lightDarkPurpleColour),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+
+                    }
                 }
-                Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1F)
-                    .background(color = lightDarkPurpleColour),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center) {
+                Row(modifier = Modifier.weight(1F)) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1F)
+                            .background(color = darkDarkPurpleColour),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
 
-                }
-            }
-            Row(modifier = Modifier.weight(1F)) {
-                Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1F)
-                    .background(color = darkDarkPurpleColour),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center) {
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1F)
+                            .background(
+                                color = lightLightPurpleColour
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
 
-                }
-                Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1F)
-                    .background(
-                        color = lightLightPurpleColour),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center) {
-
+                    }
                 }
             }
         }
-
     }
 }
 
